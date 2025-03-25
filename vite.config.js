@@ -5,22 +5,17 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
     plugins: [
         laravel({
-            input: [
-                'resources/css/app.css',
-                'resources/sass/app.scss',
-                'resources/js/app.js',
-            ],
+            input: [ 'resources/js/app.js'],
             refresh: true,
         }),
-        vue({
-            template: {
-                transformAssetUrls: {
-                    base: null,
-                    includeAbsolute: false,
-                },
-            },
-        }),
+        vue(),
     ],
+    build: {
+        emptyOutDir: true, // Ensures the build directory is cleaned properly
+        rollupOptions: {
+            input: 'resources/js/app.js', // Main entry point
+        },
+    },
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm-bundler.js',
